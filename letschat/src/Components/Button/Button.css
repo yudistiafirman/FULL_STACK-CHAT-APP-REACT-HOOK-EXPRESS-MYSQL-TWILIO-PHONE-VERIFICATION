@@ -1,0 +1,15 @@
+.btn {
+
+    display: inline;
+	font-size: 12px;
+	padding: 5px 20px;
+	color: #ebebeb;
+	margin: 20px 10px 10px;
+	border-radius: 6px;
+    text-align: center;
+	background-color: #bebebe;
+	z-index: 5;
+  
+
+}
+.btn.purple:hover {background-color: #D19ECB;}

@@ -1,0 +1,28 @@
+.container form input{
+    width: 100%;
+    outline: none;
+    border: none;
+    background-color: #ebebeb;
+    color: #444444;
+    font-size: 15px;
+    margin-top: 2px;
+    z-index: 4;
+}
+.phone-code{
+    color: #444444;
+}
+.input-field{
+    width: 120%;
+    height: 30px;
+    flex-direction: row;
+    display: flex;
+    border: 1px solid lightgray;
+    background-color: #ebebeb;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 5px;
+    z-index: 4;
+
+}

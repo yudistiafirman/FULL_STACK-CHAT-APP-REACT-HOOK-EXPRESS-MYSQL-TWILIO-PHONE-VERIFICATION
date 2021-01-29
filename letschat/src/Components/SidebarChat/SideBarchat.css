@@ -1,0 +1,27 @@
+.sidebar-chat{
+    display: flex;
+    padding: 20px;
+    cursor: pointer;
+    border-bottom: 1px solid  rgba(0,0,0,0.25);
+
+}
+
+.sidebar-chat:hover{
+    background-color: #3a3b3c;
+}
+
+
+.sidebar-chat-info{
+    margin-left: 15px;
+}
+.sidebar-chat-info>h2{
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #e4e6eb;
+}
+.sidebar-chat-info>p{
+    color:#e4e6eb
+}
+.sidebar-chat-info>p:last-child{
+    color:teal
+}

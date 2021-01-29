@@ -1,0 +1,108 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('https://cutewallpaper.org/21/space-drawing-wallpaper/59-images-about-a-Art-a_oe-on-We-Heart-It-See-more-about-.png');
+    height: 99.9vh;
+    width: 100vw;
+
+
+
+
+}
+
+.login_container{
+    width: 500px;
+    height: 365px;
+
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login_bg_container{
+    flex: 1.5;
+    background-image: url('https://wallpaperaccess.com/full/1288076.jpg');
+    overflow: hidden;
+    object-fit: cover;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    flex-direction: column;
+    position: relative;
+  
+
+}
+
+
+.login-title{
+    font-size: 30px;
+    color: #e4e6eb;
+    margin-bottom: 25px;
+}
+
+.btn-container{
+    display: flex;
+
+}
+
+.login-form{
+    text-align: center;
+    position: absolute;
+    transform: translateX(0);
+    transition-duration: .9s;
+   
+}
+
+.login-form.slide{
+    transform: translateX(-190%);
+}
+
+
+.verification-title{
+    margin: 0 0 10px;
+    padding: 0;
+    line-height: 1.25;
+    text-align: center;
+    color: #e4e6eb;
+}
+
+
+#form{
+    width: 100%;
+    margin: 25px auto 0;
+    display: flex;
+    justify-content: center;
+}
+
+#form input{
+    margin: 0 5px;
+    text-align: center;
+    line-height: 80px;
+    font-size: 50px;
+    border: solid 1px #ccc;
+    box-shadow: 0 0 5px #ccc inset;
+    outline: none;
+    width: 15%;
+    transition: all .2s ease-in-out;
+    border-radius: 3px;
+}
+.verify-form{
+    text-align: center;
+    transform: translateX(100%);
+    position: absolute;
+    transition-duration: .9s;
+}
+
+.verify-form.slide-verify{
+    transform: translateX(0);
+}
+
+
+
+
