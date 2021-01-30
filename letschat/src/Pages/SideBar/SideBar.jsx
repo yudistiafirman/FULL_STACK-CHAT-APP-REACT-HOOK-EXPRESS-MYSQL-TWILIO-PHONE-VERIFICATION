@@ -10,16 +10,22 @@ import { useToggleContact, useToggleProfile } from '../../Helpers/context'
 import Profile_options from '../../Components/Profile_options/Profile_options'
 
 
+import Modal from '../../Components/Modal/Modal'
+
+
 
 const Sidebar=()=>{
     const toggleContact=useToggleContact()
     const toggleProfile=useToggleProfile()
     const [openOption,setopenOption]=useState(false)
+    const [open,setOpen]=useState(false)
+
+    
     const user_option=[
-        {option_name:"Add Contact"},
-        {option_name:"New Group"},
-        {option_name:"Profile"},
-        {option_name:"Log out"}
+        {option_name:"Add Contact",function:()=>setOpen(true)},
+        {option_name:"New Group",function :''},
+        {option_name:"Profile",function :''},
+        {option_name:"Log out",function :''}
     ]
     return <div className="sidebar">
 
@@ -34,11 +40,18 @@ const Sidebar=()=>{
 
             <div className={openOption?"user-options show-options":"user-options"}>
                     {
-                        user_option.map((value,index)=> <Profile_options option_name={value.option_name}/> )
+                        user_option.map((value,index)=> <Profile_options option_name={value.option_name} onClick={value.function} /> )
                     }
                 
             </div>
+                    <Modal open={open} onCloseModal={()=>setOpen(false)}/>
+           
+                    
+                          
 
+
+                  
+       
             <div className="sidebar-search">
                 <Sidebarsearch/>
             </div>

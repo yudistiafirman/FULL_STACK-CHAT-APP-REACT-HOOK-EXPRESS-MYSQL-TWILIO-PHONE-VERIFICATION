@@ -46,8 +46,50 @@ module.exports={
             console.log(error)
             
         }
+    },
+
+    AddContacs:async(req,res)=>{
+     
+  
+        try {
+            const {phonenumber,dataToken}=req.dataToken
+            
+
+            const isPhoneExist= await query('select id from users where phone=? ',phonenumber)
+
+            if(isPhoneExist.length!==0){
+
+                const isPhoneAdded= await query('select contact_id from contacts where contact_id=? and user_id=?',[isPhoneExist[0].id,dataToken.id])
+        
+                if(isPhoneAdded.length===0){
+                    await query('insert into contacts set?',[{user_id:dataToken.id,contact_id:isPhoneExist[0].id}])
+
+                    res.status(200).send({
+                        success:true,
+                        message:`${phonenumber} add contact success `
+                    })
+        
+
+                }else{
+                    res.status(400).send({
+                        success:false,
+                        message:`${phonenumber} is already in your contacts list` 
+                    })
+                }
+
+           
+            }else{
+                res.status(404).send({
+                    success:false,
+                    message:'users not found'
+                })
+            }
+
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
       
 
         
-    }
 }

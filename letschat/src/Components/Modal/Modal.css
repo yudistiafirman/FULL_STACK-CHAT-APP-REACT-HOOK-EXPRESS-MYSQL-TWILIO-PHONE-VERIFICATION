@@ -1,0 +1,63 @@
+.add-contact-modal-backdrop{
+    width: 100vw;
+    height: 100vh;
+    z-index: 9;
+    position: fixed;
+    background-color: rgba(0,0,0, 0.7);
+    display: flex;
+    justify-content: center;
+}
+.add-contact-modal-backdrop.display-none{
+    display: none;
+}
+.modal-box{
+    width: 400px;
+    height: 100px;
+    background-color: #1e1e1f;
+    border-radius: 10px;
+    margin: auto;
+   padding-top: 30px;
+ 
+}
+.modal-box form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.modal-box input{
+    outline: none;
+    border: none;
+    background-color:#3a3b3c;
+    color: #eeddbb;
+    width: 90%;
+    height: 30px;
+
+    font-size: 15px;
+    margin-top: 3px;
+}
+
+
+.modal-input-field{
+    width: 97%;
+    height: 30px;
+    flex-direction: row;
+    display: flex;
+ 
+    background-color: #3a3b3c;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 5px;
+    z-index: 4;
+}
+.modal-input-field span{
+    color:#eeddbb
+}
+
+.modal-error-phone{
+    color: red;
+    font-style: italic;
+}
