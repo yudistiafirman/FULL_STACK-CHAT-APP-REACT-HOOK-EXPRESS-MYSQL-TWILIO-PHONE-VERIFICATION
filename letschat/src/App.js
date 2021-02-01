@@ -8,12 +8,12 @@ import SideBarContact from "./Pages/SideBar/SideBarContac";
 
 import Profile from "./Pages/Profile/Profile";
 import useLocalStorage from './Helpers/useLocalStorage';
-import { useGetToken, useToken } from './Helpers/context';
+import {useChatValue} from './Helpers/context';
 
 function App() {
 
-  const token=useToken()
-  const setToken=useGetToken()
+  const {token,setToken}=useChatValue()
+
  
 
 

@@ -10,7 +10,7 @@ import Profileabout from './Profile_about'
 import Preview from '../../Components/Preview/Preview'
 import Previewtop from '../../Components/Preview_top/Preview_top'
 import Previewbottom from '../../Components/Preview_bottom/Preview_bottom'
-import { useProfile, useToggleProfile } from '../../Helpers/context'
+import { useChatValue } from '../../Helpers/context'
 
 function Profile() {
 
@@ -32,8 +32,8 @@ function Profile() {
         {option_name:'Upload Photo',option_function:()=>file.current.click()},
         {option_name:'Remove Photo',option_function:()=>file.current.click()}
     ]
-    const profile=useProfile()
-    const toggleProfile=useToggleProfile()
+
+    const {profile,toggleProfile}=useChatValue()
     
 
  

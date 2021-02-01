@@ -7,7 +7,7 @@ import { ValidatePhone } from '../../Helpers/validator'
 import axios from 'axios'
 import { uri } from '../../Helpers/constant'
 import{Alert}from '@material-ui/lab'
-import { Snackbar } from '@material-ui/core'
+import {useChatValue}from '../../Helpers/context'
 
 function Modal({open,onCloseModal}) {
 
@@ -23,6 +23,7 @@ function Modal({open,onCloseModal}) {
     })
 const {phoneNumber,error}=phone
 const {error_response,error_message,success_message,success_response}=responseApi
+const {getAllcontacts}=useChatValue()
 
 useEffect(() => {
     if(!ValidatePhone(`+62${phoneNumber}`)){
@@ -49,13 +50,13 @@ const onChangePhone=(e)=>{
         
           const token =JSON.parse(localStorage.getItem('token')) 
   
-          axios.get(`${uri}auth/addcontact/${token}/+62${phoneNumber}`).then((response)=>{
+          axios.post(`${uri}auth/addcontact/${token}`,{phonenumber:`+62${phoneNumber}`}).then((response)=>{
                 SetResponseApi({error_message:'',error_response:false,success_response:true,success_message:response.data.message})
                 setTimeout(()=>{
                     onCloseModal(false)
                     SetResponseApi({error_message:'',error_response:false,success_response:false,success_message:''})
                 },1000)
-          
+                
           }).catch((error)=>{
               SetResponseApi({...responseApi,error_response:true,error_message:error.response.data.message})
           })

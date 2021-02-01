@@ -52,7 +52,9 @@ module.exports={
      
   
         try {
-            const {phonenumber,dataToken}=req.dataToken
+            const {dataToken}=req.dataToken
+            const {phonenumber}=req.body
+            console.log(phonenumber)
             
 
             const isPhoneExist= await query('select id from users where phone=? ',phonenumber)
@@ -88,6 +90,27 @@ module.exports={
         } catch (error) {
             console.log(error.message)
         }
+    },
+
+    getContacs:async(req,res)=>{
+            try {
+                const {dataToken}=req.dataToken
+                console.log(dataToken)
+                const usersInContact=await query(`select * from users where id in(select contact_id from contacts where user_id = ${dataToken.id}) `)
+           
+                res.status(200).send({
+                    success:true,
+                    contacs:usersInContact
+                })
+            } catch (error) {
+                res.status(400).send({
+                    success:false,
+                    message:'something went wrong'
+                })
+            }
+           
+
+
     }
       
 

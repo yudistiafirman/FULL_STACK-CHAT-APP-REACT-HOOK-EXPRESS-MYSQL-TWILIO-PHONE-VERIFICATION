@@ -1,6 +1,7 @@
 import React from 'react'
 import "./SideBarchat.css"
-import {Avatar}from '@material-ui/core'
+import {Avatar, IconButton}from '@material-ui/core'
+import { Delete } from '@material-ui/icons'
 
 const SidebarChat =({username,message,status})=>{
     return <div className="sidebar-chat">
@@ -10,8 +11,10 @@ const SidebarChat =({username,message,status})=>{
        <p>{message}</p>
        <p>{status}</p>
         </div>
- 
+        <IconButton style={{position:'absolute',right:'10%'}}>
+            <Delete style={{color:'gray'}}/>
+        </IconButton>
     </div>
-}
+} 
 
 export default SidebarChat

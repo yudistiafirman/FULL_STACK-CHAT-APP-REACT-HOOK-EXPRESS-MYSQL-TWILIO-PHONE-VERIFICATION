@@ -7,7 +7,7 @@ import { ValidatePhone, ValidateUsername } from '../../Helpers/validator'
 import Axios from 'axios'
 import { uri } from '../../Helpers/constant'
 import { authenticate } from '../../Helpers/auth'
-import { useGetToken } from '../../Helpers/context'
+import { useChatValue } from '../../Helpers/context'
 import{Alert}from '@material-ui/lab'
 import { Snackbar } from '@material-ui/core'
 
@@ -22,7 +22,7 @@ function LoginForm({onOpenVerification,openVerify,onSetMessage}) {
         error_phone:false,
         error_name:false
     })
-    const setToken=useGetToken()
+    const {setToken}=useChatValue()
     const [errorResponse,setErrorRes]=useState({
       openBar:false,
       message:''

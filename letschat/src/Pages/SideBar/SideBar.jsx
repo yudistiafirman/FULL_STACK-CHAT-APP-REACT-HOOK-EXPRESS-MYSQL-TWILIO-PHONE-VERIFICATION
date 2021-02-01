@@ -6,8 +6,8 @@ import myavatar from '../../Support/Images/evra.jpg'
 import SidebarChat from '../../Components/SidebarChat/SidebarChat'
 import SidebarHeaderRight from '../../Components/SidebarHeader/SidevbarHeader'
 import Sidebarsearch from '../../Components/Sidebar-search/Sidebar_search'
-import { useToggleContact, useToggleProfile } from '../../Helpers/context'
-import Profile_options from '../../Components/Profile_options/Profile_options'
+import {useChatValue } from '../../Helpers/context'
+import Profileoptions from '../../Components/Profile_options/Profile_options'
 
 
 import Modal from '../../Components/Modal/Modal'
@@ -15,8 +15,9 @@ import Modal from '../../Components/Modal/Modal'
 
 
 const Sidebar=()=>{
-    const toggleContact=useToggleContact()
-    const toggleProfile=useToggleProfile()
+
+    const {getAllcontacts,toggleContact,toggleProfile}=useChatValue()
+
     const [openOption,setopenOption]=useState(false)
     const [open,setOpen]=useState(false)
 
@@ -27,6 +28,11 @@ const Sidebar=()=>{
         {option_name:"Profile",function :''},
         {option_name:"Log out",function :''}
     ]
+
+    function setContact(){
+        toggleContact()
+        getAllcontacts()
+    }
     return <div className="sidebar">
 
 
@@ -35,12 +41,12 @@ const Sidebar=()=>{
                 <Avatar src={myavatar}/>
                 </IconButton>
              
-                <SidebarHeaderRight toggleContact={toggleContact} openUserOption={()=>setopenOption(!openOption)}/>
+                <SidebarHeaderRight toggleContact={setContact} openUserOption={()=>setopenOption(!openOption)}/>
             </div>
 
             <div className={openOption?"user-options show-options":"user-options"}>
                     {
-                        user_option.map((value,index)=> <Profile_options option_name={value.option_name} onClick={value.function} /> )
+                        user_option.map((value,index)=> <Profileoptions key={index} option_name={value.option_name} onClick={value.function} /> )
                     }
                 
             </div>

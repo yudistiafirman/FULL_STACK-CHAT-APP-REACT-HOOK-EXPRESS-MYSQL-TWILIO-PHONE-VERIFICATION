@@ -1,21 +1,15 @@
-import React ,{  useState,useRef, useEffect }from 'react'
+import React ,{  useState,useRef}from 'react'
 import Button from '../../Components/Button/Button'
 import Axios from 'axios'
 import { authenticate } from '../../Helpers/auth'
-import { useGetToken } from '../../Helpers/context'
+import { useChatValue } from '../../Helpers/context'
 import { uri } from '../../Helpers/constant'
 import{Alert}from '@material-ui/lab'
 import { Snackbar } from '@material-ui/core'
 
 
 function VerificationForm({verify,message,onSetVerify}) {
-    const [input,setInput]=useState({
-        input_1:'',
-        input_2:'',
-        input_3:'',
-        input_4:'',
-      
-      })
+
     const field_1=useRef()
     const field_2=useRef()
     const field_3=useRef()
@@ -26,17 +20,17 @@ function VerificationForm({verify,message,onSetVerify}) {
       message:''
     })
 
-    const setToken=useGetToken()
+    const {setToken}=useChatValue()
     
     
-    const {input_1,input_2,input_3,input_4}=input
+
     const {error,error_message}=alert
     
     const dataInput=[
-      {value:input_1,refs:field_1},
-      {value:input_2,refs:field_2},
-      {value:input_3,refs:field_3},
-      {value:input_4,refs:field_4},
+      {refs:field_1},
+      {refs:field_2},
+      {refs:field_3},
+      {refs:field_4},
     
       
     ]

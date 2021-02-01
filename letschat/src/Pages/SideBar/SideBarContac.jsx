@@ -1,17 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './SideBarContact.css'
 import { ArrowBack}from '@material-ui/icons'
 import Sidebarsearch from '../../Components/Sidebar-search/Sidebar_search'
 import SidebarChat from '../../Components/SidebarChat/SidebarChat'
-import {useContact,useToggleContact}from '../../Helpers/context'
+import {useChatValue}from '../../Helpers/context'
 import { IconButton } from '@material-ui/core'
 
 
 function SideBarContact() {
 
-    const contact=useContact()
-    const toggleContact=useToggleContact()
   
+    const {contact,toggleContact,user}=useChatValue()
+
+
+ 
+
+
+  
+  
+
+   
+  
+  console.log(user)
 
 
 
@@ -33,7 +43,9 @@ function SideBarContact() {
         </div>
 
         <div className="sidebar-contacts">
-            <SidebarChat username="Firman" status="aku jenius"/>
+            {
+                user?user.map((value,index)=><SidebarChat key={index} username={value.username} status={value.phone}/> ):null
+            }
         </div>
     </div>
     )

@@ -2,15 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { ContactProvider } from "./Helpers/context";
+import { ChatProvider } from "./Helpers/context";
 
 
 ReactDOM.render(
 
   <React.StrictMode>
-    <ContactProvider>
+    <ChatProvider>
   <App />
-  </ContactProvider>
+  </ChatProvider>
 </React.StrictMode>,
 
   document.getElementById('root')
