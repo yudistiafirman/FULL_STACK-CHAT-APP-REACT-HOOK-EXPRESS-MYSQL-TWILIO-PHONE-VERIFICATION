@@ -38,5 +38,18 @@
 .sidebar-contacts{
     flex: 1;
     background-color:#242526;
+    flex-direction: column;
+    align-items: center;
     overflow: auto;
+    position: relative;
+
+}
+
+.username-index{
+    color:#e4e6eb;
+    padding: 15px;
+}
+
+.username-index.display-none{
+    display: none;
 }

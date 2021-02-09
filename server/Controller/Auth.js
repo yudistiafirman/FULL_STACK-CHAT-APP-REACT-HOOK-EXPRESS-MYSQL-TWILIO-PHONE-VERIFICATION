@@ -96,14 +96,17 @@ module.exports={
             try {
                 const {dataToken}=req.dataToken
                 console.log(dataToken)
-                const usersInContact=await query(`select * from users where id in(select contact_id from contacts where user_id = ${dataToken.id}) `)
-           
+                const usersInContact=await query(`select id as user_id,phone,avatar,username from users where id in(select contact_id from contacts where user_id = ${dataToken.id}) `)
+                const message=await query('select * from messages where senders_id=? or recepient_id =?',[dataToken.id,dataToken.id])
+
                 res.status(200).send({
                     success:true,
-                    contacs:usersInContact
+                    contacts:usersInContact,
+                    messages:message
                 })
-            } catch (error) {
-                res.status(400).send({
+                    
+            } catch (error) {       
+                res.status(200).send({
                     success:false,
                     message:'something went wrong'
                 })
@@ -111,8 +114,10 @@ module.exports={
            
 
 
-    }
-      
+    },
+
+ 
+   
 
         
 }

@@ -124,7 +124,7 @@ const onChangeName=(e)=>{
            {error_name&& username.length>0?<ErrorMessage top="78%">minimum 6 characters </ErrorMessage>:null}
 
 
-           <Snackbar  open={openBar} style={{width:'100%',position:'absolute',top:'100%',height:'10%'}} autoHideDuration="2000" onClose={()=>setErrorRes({...errorResponse,openBar:false})}>
+           <Snackbar  open={openBar} style={{width:'100%',position:'absolute',top:'100%',height:'10%'}} autoHideDuration={2000} onClose={()=>setErrorRes({...errorResponse,openBar:false})}>
            <Alert  severity="error" >{message}</Alert>
            </Snackbar>
          

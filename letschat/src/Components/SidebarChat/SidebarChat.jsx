@@ -1,19 +1,26 @@
 import React from 'react'
 import "./SideBarchat.css"
-import {Avatar, IconButton}from '@material-ui/core'
-import { Delete } from '@material-ui/icons'
+import {Avatar}from '@material-ui/core'
 
-const SidebarChat =({username,message,status})=>{
-    return <div className="sidebar-chat">
+
+const SidebarChat =({sent_at,username,status,onClick,onChange})=>{
+
+   
+
+
+    
+    return <div onChange={onChange} onClick={onClick} className="sidebar-chat">
         <Avatar/>
         <div className="sidebar-chat-info">
        <h2>{username}</h2>
-       <p>{message}</p>
-       <p>{status}</p>
+{
+    status?   <p>{status}</p>:null
+}
+    <span>
+        {sent_at}
+    </span>
         </div>
-        <IconButton style={{position:'absolute',right:'10%'}}>
-            <Delete style={{color:'gray'}}/>
-        </IconButton>
+  
     </div>
 } 
 

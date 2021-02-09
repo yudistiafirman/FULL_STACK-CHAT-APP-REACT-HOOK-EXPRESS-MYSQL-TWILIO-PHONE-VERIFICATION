@@ -7,11 +7,11 @@ import { ChatProvider } from "./Helpers/context";
 
 ReactDOM.render(
 
-  <React.StrictMode>
+
     <ChatProvider>
   <App />
   </ChatProvider>
-</React.StrictMode>,
+,
 
   document.getElementById('root')
 );

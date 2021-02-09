@@ -7,20 +7,20 @@ import{IconButton}from '@material-ui/core'
 import './SidebarHeader.css'
 
 
-export default function SidebarHeaderRight({toggleContact,openUserOption}){
+export default function SidebarHeaderRight({toggleContact,openUserOption,onMouseLeave}){
 
   
 
   
     return <div>
-        <div className="sidebar-header-right">
+        <div  className="sidebar-header-right">
                     <IconButton>
                     <SpiralIcon style={{color:'	#e4e6eb'}}/>
                     </IconButton>
                     <IconButton onClick={toggleContact}>
                     <Add style={{color:'	#e4e6eb'}} />
                     </IconButton>
-                    <IconButton onClick={openUserOption}>
+                    <IconButton onMouseLeave={onMouseLeave} onClick={openUserOption}>
                     <MoreVertIcon style={{color:'	#e4e6eb'}}/>
                     </IconButton>
                 </div>

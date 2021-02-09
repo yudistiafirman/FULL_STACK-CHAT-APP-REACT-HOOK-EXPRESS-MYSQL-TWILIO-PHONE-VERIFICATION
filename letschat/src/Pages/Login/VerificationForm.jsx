@@ -87,7 +87,7 @@ const onSubmitEditing=(e,index,ref,value)=>{
                 <div id="form">
 
                  {
-                  dataInput.map((value,index)=><input  ref={value.refs} type="text" maxLength="1" min="0" max="9" onInput={(e)=>onSubmitEditing(e,index)}/>)
+                  dataInput.map((value,index)=><input key={index} ref={value.refs} type="text" maxLength="1" min="0" max="9" onInput={(e)=>onSubmitEditing(e,index)}/>)
                  }
     
      
@@ -105,7 +105,7 @@ const onSubmitEditing=(e,index,ref,value)=>{
   
            </div>
            
-           <Snackbar  open={error} style={{width:'100%',position:'absolute',top:'100%',height:'10%'}} autoHideDuration="3000" onClose={()=>Setalert({...alert,error:false})}>
+           <Snackbar  open={error} style={{width:'100%',position:'absolute',top:'100%',height:'10%'}} autoHideDuration={3000} onClose={()=>Setalert({...alert,error:false})}>
            <Alert  severity="error" >{error_message}</Alert>
            </Snackbar>
     </div>

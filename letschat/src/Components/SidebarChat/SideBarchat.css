@@ -1,9 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+
 .sidebar-chat{
     display: flex;
-    padding: 20px;
+    padding: 15px;
     cursor: pointer;
     border-bottom: 1px solid  rgba(0,0,0,0.25);
     position: relative;
+    align-items: center;
+    font-family: 'Montserrat';
+    font-weight: 100;
 
 }
 
@@ -17,12 +22,22 @@
 }
 .sidebar-chat-info>h2{
     font-size: 16px;
-    margin-bottom: 8px;
+
     color: #e4e6eb;
 }
 .sidebar-chat-info>p{
-    color:#e4e6eb
+    color:#bbdfc8;
+    font-size: 14px;
+    margin-top: 3px;
 }
-.sidebar-chat-info>p:last-child{
-    color:teal
+
+.sidebar-chat span{
+    font-size: 10px;
+    color: aliceblue;
+    position: absolute;
+ 
+    top:27%;
+    left: 60%;
+  
+  
 }

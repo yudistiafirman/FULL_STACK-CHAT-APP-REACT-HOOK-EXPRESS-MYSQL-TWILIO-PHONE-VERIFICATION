@@ -7,7 +7,7 @@ import LoginForm from './LoginForm'
 import VerificationForm from './VerificationForm'
 
 
-export default function Login({ }) {
+export default function Login() {
 
 
 

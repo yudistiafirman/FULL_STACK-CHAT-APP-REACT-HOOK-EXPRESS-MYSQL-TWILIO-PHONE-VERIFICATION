@@ -7,7 +7,7 @@ import { ValidatePhone } from '../../Helpers/validator'
 import axios from 'axios'
 import { uri } from '../../Helpers/constant'
 import{Alert}from '@material-ui/lab'
-import {useChatValue}from '../../Helpers/context'
+
 
 function Modal({open,onCloseModal}) {
 
@@ -23,7 +23,7 @@ function Modal({open,onCloseModal}) {
     })
 const {phoneNumber,error}=phone
 const {error_response,error_message,success_message,success_response}=responseApi
-const {getAllcontacts}=useChatValue()
+
 
 useEffect(() => {
     if(!ValidatePhone(`+62${phoneNumber}`)){

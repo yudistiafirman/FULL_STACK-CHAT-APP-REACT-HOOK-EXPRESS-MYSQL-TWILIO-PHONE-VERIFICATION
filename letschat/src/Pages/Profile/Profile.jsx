@@ -113,7 +113,7 @@ function Profile() {
                   
                 <div onMouseLeave={onLeaveMouse} className={changePhoto&&option?"profile-options reveal-options":"profile-options"}>
                    
-                      {options.map((value,index)=> <Profileoptions onClick={value.option_function} option_name={value.option_name} /> ) }
+                      {options.map((value,index)=> <Profileoptions key={index} onClick={value.option_function} option_name={value.option_name} /> ) }
                       <input type="file" onChange={onChangeImage} ref={file} accept="image/*"/>
                 </div>
             </div>
