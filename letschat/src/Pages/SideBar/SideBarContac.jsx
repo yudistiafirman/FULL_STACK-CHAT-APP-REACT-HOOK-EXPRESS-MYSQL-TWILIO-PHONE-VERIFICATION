@@ -9,16 +9,11 @@ import { CircularProgress, IconButton } from '@material-ui/core'
 
 function SideBarContact() {
     
-    const {contact,toggleContact,user,getAllcontacts}=useChatValue()
+    const {contact,toggleContact,user,getAllcontacts,createConversation}=useChatValue()
     const {loading,value,error}=user
     const [searchValue,SetSearchValue]=useState('')
     const [filter,Setfilter]=useState([])
 
-    const onHandleClick=(contactId)=>{
-    
-       getAllcontacts()
-        toggleContact()
-    }
 
     useEffect(()=>{
 
@@ -29,6 +24,12 @@ function SideBarContact() {
     
  
     },[searchValue])
+
+
+    const createConversationFromContact=(id,username,avatar,message)=>{
+        createConversation(id,username,avatar,message)
+        toggleContact()
+    }
  
     const searchIndex=()=>{
         let arrayIndex=[]
@@ -54,7 +55,7 @@ function SideBarContact() {
            
             {
                
-               value.data.filter((el,idx)=>el.username.toUpperCase().includes(searchValue)).sort((a, b) => a.username !== b.username ? a.username < b.username ? -1 : 1 : 0).map((v,i)=><SidebarChat   key={i}  username={v.username} /> )
+               value.data.filter((el,idx)=>el.username.toUpperCase().includes(searchValue)).sort((a, b) => a.username !== b.username ? a.username < b.username ? -1 : 1 : 0).map((v,i)=><SidebarChat onClick={()=>createConversationFromContact(v.id,v.username,v.avatar,v.message)}   key={i}  username={v.username} /> )
             }
             
         </div>
