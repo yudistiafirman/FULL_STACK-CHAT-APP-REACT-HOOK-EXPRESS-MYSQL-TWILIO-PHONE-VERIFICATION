@@ -15,6 +15,7 @@
     "cropperjs": "^1.5.9",
     "emoji-mart": "^3.0.0",
     "emoji-picker-react": "^3.4.2",
+    "mic-recorder-to-mp3": "^2.2.2",
     "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",

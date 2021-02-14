@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './Chat.css'
 import {Avatar, IconButton}from '@material-ui/core'
 
-import {Mic, InsertEmoticon, AttachFile, Send}from '@material-ui/icons'
+import {Mic, InsertEmoticon, AttachFile, Send, Stop, Straighten}from '@material-ui/icons'
 
 import Profileoptions from '../../Components/Profile_options/Profile_options'
 import { useChatValue } from '../../Helpers/context'
@@ -18,6 +18,7 @@ import "emoji-mart/css/emoji-mart.css";
 
 import ReactEmoji from 'react-emoji';
 import Emoji from '../../Components/Emoji/Emoji'
+import Pulsebutton from '../../Components/PulseButton/Pulsebutton'
 
 
  const Chat =()=>{
@@ -30,7 +31,55 @@ import Emoji from '../../Components/Emoji/Emoji'
     ]
     const [text,SetText]=useState('')
     const [emoji,SetEmoji]=useState(false)
+    const [mic,SetMic]=useState({
+        isRecording:false,
+        blobUrl:'',
+     
+    })
+    const [record,SetRecord]=useState(null)
+ 
     const file=useRef()
+    const {isRecording,blobUrl,isBlocked}=mic
+
+    useEffect(()=>{
+        if(isRecording){
+            fetchRecording()
+        }
+    },[isRecording])
+
+            
+           
+  
+ 
+    
+
+    
+  
+
+const fetchRecording= async()=>{
+    let chunks=[]
+
+    const options = {mimeType: 'audio/webm'}
+    let stream= await navigator.mediaDevices.getUserMedia({audio:isRecording})
+    let recorder= new MediaRecorder(stream,options)
+    recorder.start()
+    SetRecord(recorder)
+
+    recorder.ondataavailable = (e)=> {
+        if(e.data.size>0){
+            chunks.push(e.data);
+        }
+        
+      }
+    recorder.onstop=e=>{
+        const blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
+        chunks = [];
+
+        SetMic({blobUrl:blob})
+        
+    }
+      
+}
 
     const renderChatBox=()=>{
         return   conversation.message.map((value,index)=><div key={index} style={{display:'flex',flexDirection:'column'}}>
@@ -43,12 +92,27 @@ import Emoji from '../../Components/Emoji/Emoji'
         </div>
         )
     }
+    const onStartMedia=()=>{
+       SetMic({isRecording:true,blobUrl:''})
 
-    const onClickText=(e)=>{
-        e.preventDefault()
-        let emoji= String.fromCodePoint(0x1F630)
-        SetText(prev=> prev+emoji)
+    
+       
     }
+    const onStopMedia=()=>{
+
+        if(record.state!=='inactive'){
+            record.stop()
+            SetMic({blobUrl:''})
+        }
+     
+    }
+  console.log(blobUrl)
+   
+
+    
+     
+    
+
     return conversation===null?<Welcome/>
             : 
     <div className="chat">
@@ -77,24 +141,18 @@ import Emoji from '../../Components/Emoji/Emoji'
         </div>
        
         <div className="chat-footer">
-            <IconButton onClick={()=>SetEmoji(!emoji)}>
+            
+             <IconButton onClick={()=>SetEmoji(!emoji)}>   <InsertEmoticon style={{color:'aliceblue'}}/> </IconButton>
+            
+          {emoji&&     <Emoji setText={SetText}/>}
+       
+            <form >
            
-            <InsertEmoticon style={{color:'aliceblue'}}/>
-            </IconButton>
-            {emoji&&     <Emoji/>}
-       
-            <form action="
-            ">
-       
-                <input value={text} onChange={(e)=>SetText(e.target.value)} type="text" placeholder="type a message"/>
-                
-             
-                </form>
-          <IconButton onClick={onClickText}>
-          { text.length>0?  <Send style={{color:'aliceblue'}}/>: <Mic style={{color:'aliceblue'}}/> }
-          </IconButton>
-
-       
+                    <input value={text} onChange={(e)=>SetText(e.target.value)} type="text" placeholder="type a message"/>
+                 
+           </form>
+          {text.length >0 ?<IconButton><Send style={{color:'aliceblue'}}/></IconButton>:record.state==='recording'?<Pulsebutton onClick={onStopMedia} / >: <IconButton onClick={onStartMedia} >  <Mic style={{color:'aliceblue'}}/></IconButton>  }
+           
         </div>
 
     </div>
@@ -102,3 +160,12 @@ import Emoji from '../../Components/Emoji/Emoji'
 
 
 export default Chat 
+          
+           
+         
+ 
+
+             
+    
+   
+   

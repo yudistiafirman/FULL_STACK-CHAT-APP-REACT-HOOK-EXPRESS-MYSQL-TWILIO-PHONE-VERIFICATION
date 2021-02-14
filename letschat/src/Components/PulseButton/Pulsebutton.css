@@ -1,0 +1,40 @@
+.load{
+    background-color: red;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 1px 1px #0000001a;
+    animation: pulse-animation 2s infinite;
+    margin: 20px;
+
+}
+.pulse-container{
+    align-items: center;
+    display: flex;
+}
+.pulse-container .MuiSvgIcon-root{
+    color:aliceblue;
+    width:30px;
+    height:30px;
+ 
+    border-radius:50%
+}
+
+
+.pulse-container .MuiIconButton-root :hover{
+    background-color: red;
+  
+    border-radius:50%;
+}
+@keyframes pulse-animation {
+    0% {
+        transform: scale(1.1);
+      box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+    }
+    100% {
+    
+      box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
+    }
+  }
+  
+ 
