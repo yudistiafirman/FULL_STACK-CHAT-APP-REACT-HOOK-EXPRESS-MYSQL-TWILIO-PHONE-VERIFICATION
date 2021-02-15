@@ -37,6 +37,7 @@ import Pulsebutton from '../../Components/PulseButton/Pulsebutton'
      
     })
     const [record,SetRecord]=useState(null)
+  
  
     const file=useRef()
     const {isRecording,blobUrl,isBlocked}=mic
@@ -93,8 +94,9 @@ const fetchRecording= async()=>{
         )
     }
     const onStartMedia=()=>{
+        
        SetMic({isRecording:true,blobUrl:''})
-
+        
     
        
     }
@@ -106,7 +108,7 @@ const fetchRecording= async()=>{
         }
      
     }
-  console.log(blobUrl)
+
    
 
     
@@ -151,7 +153,7 @@ const fetchRecording= async()=>{
                     <input value={text} onChange={(e)=>SetText(e.target.value)} type="text" placeholder="type a message"/>
                  
            </form>
-          {text.length >0 ?<IconButton><Send style={{color:'aliceblue'}}/></IconButton>:record.state==='recording'?<Pulsebutton onClick={onStopMedia} / >: <IconButton onClick={onStartMedia} >  <Mic style={{color:'aliceblue'}}/></IconButton>  }
+          {text.length >0 ?<IconButton><Send style={{color:'aliceblue'}}/></IconButton>:record&&record.state==='recording'?<Pulsebutton isActive={record.state!=='inactive'}  onClick={onStopMedia} / >: <IconButton onClick={onStartMedia} >  <Mic style={{color:'aliceblue'}}/></IconButton>  }
            
         </div>
 
