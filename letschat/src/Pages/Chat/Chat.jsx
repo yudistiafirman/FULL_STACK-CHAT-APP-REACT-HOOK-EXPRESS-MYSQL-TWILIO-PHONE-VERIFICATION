@@ -19,6 +19,8 @@ import "emoji-mart/css/emoji-mart.css";
 import ReactEmoji from 'react-emoji';
 import Emoji from '../../Components/Emoji/Emoji'
 import Pulsebutton from '../../Components/PulseButton/Pulsebutton'
+import axios from 'axios'
+import { uri } from '../../Helpers/constant'
 
 
  const Chat =()=>{
@@ -31,22 +33,18 @@ import Pulsebutton from '../../Components/PulseButton/Pulsebutton'
     ]
     const [text,SetText]=useState('')
     const [emoji,SetEmoji]=useState(false)
-    const [mic,SetMic]=useState({
-        isRecording:false,
-        blobUrl:'',
-     
-    })
+    const [mic,SetMic]=useState(false)
     const [record,SetRecord]=useState(null)
   
  
     const file=useRef()
-    const {isRecording,blobUrl,isBlocked}=mic
+
 
     useEffect(()=>{
-        if(isRecording){
+        if(mic){
             fetchRecording()
         }
-    },[isRecording])
+    },[mic])
 
             
            
@@ -58,27 +56,15 @@ import Pulsebutton from '../../Components/PulseButton/Pulsebutton'
   
 
 const fetchRecording= async()=>{
-    let chunks=[]
+
 
     const options = {mimeType: 'audio/webm'}
-    let stream= await navigator.mediaDevices.getUserMedia({audio:isRecording})
+    let stream= await navigator.mediaDevices.getUserMedia({audio:mic})
     let recorder= new MediaRecorder(stream,options)
     recorder.start()
     SetRecord(recorder)
 
-    recorder.ondataavailable = (e)=> {
-        if(e.data.size>0){
-            chunks.push(e.data);
-        }
-        
-      }
-    recorder.onstop=e=>{
-        const blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
-        chunks = [];
 
-        SetMic({blobUrl:blob})
-        
-    }
       
 }
 
@@ -95,7 +81,7 @@ const fetchRecording= async()=>{
     }
     const onStartMedia=()=>{
         
-       SetMic({isRecording:true,blobUrl:''})
+       SetMic(prev=>true)
         
     
        
@@ -104,16 +90,55 @@ const fetchRecording= async()=>{
 
         if(record.state!=='inactive'){
             record.stop()
-            SetMic({blobUrl:''})
+            SetMic(false)
+
         }
      
     }
 
-   
+   const onSubmitAudio=(e)=>{
+       // record state===!incative stop the audio
+        if(record.state!=='inactive'){
+            record.stop()
+            SetMic(false)
+            
 
-    
+        }
+        let chunks=[]
+        record.ondataavailable = (e)=> {
+                chunks.push(e.data)
+
+            
+          }
+
+          record.onstop=e=>{
+            const blob = new Blob(chunks, { 'type' : 'audio/webm' });
+            chunks=[]
+            if(blob.size>500000){
+                alert('cannot send the audio file is too large')
+            }else{
+                let fd = new FormData()
+                fd.append('audio',blob)
+                const token =localStorage.getItem('token')
+           
+                axios.post(`${uri}auth/uploadaudio/${JSON.parse(token)}/${conversation.id}`,fd).then((res)=>{
+                    console.log(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+            }
+          }
+ 
+            
+    }
+
+       
+   
+          console.log(conversation)
+
+
      
-    
+
 
     return conversation===null?<Welcome/>
             : 
@@ -153,7 +178,7 @@ const fetchRecording= async()=>{
                     <input value={text} onChange={(e)=>SetText(e.target.value)} type="text" placeholder="type a message"/>
                  
            </form>
-          {text.length >0 ?<IconButton><Send style={{color:'aliceblue'}}/></IconButton>:record&&record.state==='recording'?<Pulsebutton isActive={record.state!=='inactive'}  onClick={onStopMedia} / >: <IconButton onClick={onStartMedia} >  <Mic style={{color:'aliceblue'}}/></IconButton>  }
+          {text.length >0 ?<IconButton><Send style={{color:'aliceblue'}}/></IconButton>:record && record.state==='recording'?<Pulsebutton isActive={record.state!=='inactive'}  onClick={onStopMedia} onAudiofile={onSubmitAudio} / >: <IconButton onClick={onStartMedia} >  <Mic style={{color:'aliceblue'}}/></IconButton>  }
            
         </div>
 

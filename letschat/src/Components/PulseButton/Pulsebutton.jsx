@@ -4,7 +4,7 @@ import React from 'react'
 import Timer from '../Timer/Timer'
 import './Pulsebutton.css'
 
-function Pulsebutton({onClick,isActive}) {
+function Pulsebutton({onClick,isActive,onAudiofile}) {
     return (
         <div className="pulse-container">
 
@@ -16,7 +16,7 @@ function Pulsebutton({onClick,isActive}) {
             <Timer isActive={isActive}/>
 
 
-            <IconButton >
+            <IconButton onClick={onAudiofile} >
            <Check />
              </IconButton>
 
