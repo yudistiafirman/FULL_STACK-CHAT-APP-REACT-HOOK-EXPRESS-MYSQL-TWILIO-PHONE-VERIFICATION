@@ -13,6 +13,7 @@ app.use(express.json())
 
 
 app.use('/auth',morgan('dev'),AuthRoute)
+app.use(express.static('public'))
 
 
 app.listen(port,()=>{
