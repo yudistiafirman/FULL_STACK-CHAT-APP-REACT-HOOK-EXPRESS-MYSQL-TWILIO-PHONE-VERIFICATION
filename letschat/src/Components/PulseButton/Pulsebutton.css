@@ -11,6 +11,8 @@
 .pulse-container{
     align-items: center;
     display: flex;
+   
+    
 }
 .pulse-container .MuiSvgIcon-root{
     color:aliceblue;

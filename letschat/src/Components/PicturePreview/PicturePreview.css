@@ -1,0 +1,11 @@
+.send-picture-preview{
+    position: absolute;
+    width: 65%;
+    background-color: #e4e6eb;
+    z-index: 4;
+    height: 85%;
+    bottom: 0;
+    left: 35%;
+    right: 0;
+    top:8%;
+}

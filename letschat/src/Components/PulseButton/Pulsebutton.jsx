@@ -4,10 +4,10 @@ import React from 'react'
 import Timer from '../Timer/Timer'
 import './Pulsebutton.css'
 
-function Pulsebutton({onClick,isActive,onAudiofile}) {
+function Pulsebutton({onClick,isActive,onAudiofile,onBlur,onFocus}) {
     return (
-        <div className="pulse-container">
-
+        <div className="pulse-container" onFocus={onFocus} tabIndex={1}  onBlur={onBlur}>
+         
             <IconButton onClick={onClick}>
                 <Close  />
             </IconButton>

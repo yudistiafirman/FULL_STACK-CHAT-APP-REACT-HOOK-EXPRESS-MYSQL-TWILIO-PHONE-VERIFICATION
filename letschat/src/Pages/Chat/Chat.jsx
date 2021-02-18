@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './Chat.css'
 import {Avatar, IconButton}from '@material-ui/core'
-
-import {Mic, InsertEmoticon, AttachFile, Send, Stop, Straighten}from '@material-ui/icons'
-
+import {Mic, InsertEmoticon, AttachFile, Send}from '@material-ui/icons'
 import Profileoptions from '../../Components/Profile_options/Profile_options'
 import { useChatValue } from '../../Helpers/context'
 import Welcome from '../../Components/welcome/Welcome'
@@ -12,15 +10,17 @@ import {  dateFormatterChat } from '../../Helpers/dateFormatter'
 import moment from 'moment'
 import ChatHeaderInfo from '../../Components/ChatHeaderInfo/ChatHeaderInfo'
 import ChatHeaderRight from '../../Components/ChatHeaderRight/ChatHeaderRight'
-import data from 'emoji-mart/data/google.json'
-import { NimblePicker } from 'emoji-mart'
-import "emoji-mart/css/emoji-mart.css";
-
-import ReactEmoji from 'react-emoji';
 import Emoji from '../../Components/Emoji/Emoji'
 import Pulsebutton from '../../Components/PulseButton/Pulsebutton'
 import axios from 'axios'
 import { uri } from '../../Helpers/constant'
+import PicturePreview from '../../Components/PicturePreview/PicturePreview'
+
+
+
+
+
+
 
 
  const Chat =()=>{
@@ -35,6 +35,8 @@ import { uri } from '../../Helpers/constant'
     const [emoji,SetEmoji]=useState(false)
     const [mic,SetMic]=useState(false)
     const [record,SetRecord]=useState(null)
+ 
+ 
   
  
     const file=useRef()
@@ -134,10 +136,17 @@ const fetchRecording= async()=>{
 
        
    
-          console.log(conversation)
-
-
+const handleBlur=(e)=>{
+    if(mic){
+        console.log(record.state)
+        onStopMedia()
+    }
+ 
+    
      
+    
+}
+
 
 
     return conversation===null?<Welcome/>
@@ -154,7 +163,7 @@ const fetchRecording= async()=>{
 
             </div>
 
-            <div onMouseLeave={()=>Setchatoption(false)} className={chatOption?"chat-options show-options":"chat-options"}>
+            <div onMouseLeave={()=>Setchatoption(false)}  className={chatOption?"chat-options show-options":"chat-options"}>
 
                 {chat_options.map((value,index)=> <Profileoptions key={index} option_name={value.option}/>  )}
 
@@ -172,15 +181,21 @@ const fetchRecording= async()=>{
              <IconButton onClick={()=>SetEmoji(!emoji)}>   <InsertEmoticon style={{color:'aliceblue'}}/> </IconButton>
             
           {emoji&&     <Emoji setText={SetText}/>}
+          <IconButton onClick={()=>file.current.click()}><AttachFile style={{color:'aliceblue'}}/></IconButton>
        
             <form >
            
                     <input value={text} onChange={(e)=>SetText(e.target.value)} type="text" placeholder="type a message"/>
-                 
+                    <input type="file" accept='image/*' style={{display:'none'}} ref={file}/>
            </form>
-          {text.length >0 ?<IconButton><Send style={{color:'aliceblue'}}/></IconButton>:record && record.state==='recording'?<Pulsebutton isActive={record.state!=='inactive'}  onClick={onStopMedia} onAudiofile={onSubmitAudio} / >: <IconButton onClick={onStartMedia} >  <Mic style={{color:'aliceblue'}}/></IconButton>  }
+           <div contentEditable onFocus={()=>console.log('hai')} style={{outline:'none',caretColor:'transparent',color:'transparent'}} onBlur={handleBlur} >
+           {text.length >0 ?<IconButton><Send style={{color:'aliceblue'}}/></IconButton>:record && record.state==='recording'?<Pulsebutton   isActive={record.state!=='inactive'}  onClick={onStopMedia} onAudiofile={onSubmitAudio} / >: <IconButton onClick={onStartMedia} >  <Mic style={{color:'aliceblue'}}/></IconButton>  }
+           </div>
+         
            
         </div>
+
+    <PicturePreview/>
 
     </div>
 }
