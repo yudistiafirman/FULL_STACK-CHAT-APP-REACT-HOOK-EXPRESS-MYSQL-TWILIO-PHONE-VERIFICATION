@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './Chat.css'
 import {Avatar, IconButton}from '@material-ui/core'
-import {Mic, InsertEmoticon, AttachFile, Send}from '@material-ui/icons'
+import {Mic, InsertEmoticon, AttachFile, Send, Add}from '@material-ui/icons'
 import Profileoptions from '../../Components/Profile_options/Profile_options'
 import { useChatValue } from '../../Helpers/context'
 import Welcome from '../../Components/welcome/Welcome'
@@ -16,7 +16,7 @@ import axios from 'axios'
 import { uri } from '../../Helpers/constant'
 import PicturePreview from '../../Components/PicturePreview/PicturePreview'
 
-
+import evra from '../../Support/Images/evra.jpg'
 
 
 
@@ -49,6 +49,18 @@ import PicturePreview from '../../Components/PicturePreview/PicturePreview'
     },[mic])
 
             
+    const fetchRecording= async()=>{
+    
+    
+        const options = {mimeType: 'audio/webm'}
+        let stream= await navigator.mediaDevices.getUserMedia({audio:mic})
+        let recorder= new MediaRecorder(stream,options)
+        recorder.start()
+        SetRecord(recorder)
+    
+    
+          
+    }
            
   
  
@@ -57,18 +69,6 @@ import PicturePreview from '../../Components/PicturePreview/PicturePreview'
     
   
 
-const fetchRecording= async()=>{
-
-
-    const options = {mimeType: 'audio/webm'}
-    let stream= await navigator.mediaDevices.getUserMedia({audio:mic})
-    let recorder= new MediaRecorder(stream,options)
-    recorder.start()
-    SetRecord(recorder)
-
-
-      
-}
 
     const renderChatBox=()=>{
         return   conversation.message.map((value,index)=><div key={index} style={{display:'flex',flexDirection:'column'}}>
@@ -180,7 +180,7 @@ const handleBlur=(e)=>{
             
              <IconButton onClick={()=>SetEmoji(!emoji)}>   <InsertEmoticon style={{color:'aliceblue'}}/> </IconButton>
             
-          {emoji&&     <Emoji setText={SetText}/>}
+          {emoji&&     <Emoji className="emoji-container" setText={SetText}/>}
           <IconButton onClick={()=>file.current.click()}><AttachFile style={{color:'aliceblue'}}/></IconButton>
        
             <form >
@@ -195,7 +195,16 @@ const handleBlur=(e)=>{
            
         </div>
 
-    <PicturePreview/>
+    <PicturePreview>
+
+            <img className="add-picture" src={evra} alt=""/>
+            <img src={evra}/>
+            <div className="add-file">
+                <Add/>
+                <p>add file</p>
+            </div>
+
+    </PicturePreview>
 
     </div>
 }

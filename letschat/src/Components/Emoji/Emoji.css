@@ -1,21 +1,8 @@
-.emoji-container{
-    width: 200px;
-    height: 100px;
-background-color:#ffff;
-    position: fixed;
-    z-index: 4;
-    bottom: 10%;
-    left: 40%;
-    right: 0;
-    top:75%;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: center;
-    
-}
+
 .emoji-container span{
+    cursor: pointer;
+}
+
+.preview-emoji-container span{
     cursor: pointer;
 }
