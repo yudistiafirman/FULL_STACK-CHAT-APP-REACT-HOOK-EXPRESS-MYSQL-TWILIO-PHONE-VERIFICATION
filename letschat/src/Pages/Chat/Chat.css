@@ -103,6 +103,15 @@
 .add-picture{
     width: 100px;
     height: 100px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+   
+}
+
+.add-picture.active{
     border:2px solid #29c7ac;
 }
 
@@ -123,4 +132,16 @@ background-color:#ffff;
     justify-content: space-evenly;
     align-items: center;
     
+}
+
+.close-small-picture{
+    position: absolute;
+    top:0;
+    left: 80%;
+    color:aqua;
+    cursor: pointer;
+}
+
+.close-small-picture.display-none{
+    display: none;
 }

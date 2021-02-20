@@ -18,6 +18,9 @@ export function ChatProvider({children}){
     const [profile,setProfile]=useState(false)
     const [token,setToken]=useState(null)
     const [conversation,SetConversation]=useState(null)
+    const [previewText,SetPreviewText]=useState('')
+    const [picture,SetPicture]=useState([])
+    const [index,SetIndex]=useState(0)
   
 
     const [user,Setuser]=useState({
@@ -145,6 +148,12 @@ export function ChatProvider({children}){
         toggleProfile,
         toggleContact,
         createConversation,
+        previewText,
+        SetPreviewText,
+        picture,
+        SetPicture,
+        index,
+        SetIndex,
        
    
      

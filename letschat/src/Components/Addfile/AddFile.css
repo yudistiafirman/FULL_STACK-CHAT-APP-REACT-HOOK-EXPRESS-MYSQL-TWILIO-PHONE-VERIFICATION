@@ -1,0 +1,18 @@
+.add-file{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color:#414141 ;
+    cursor: pointer;
+}
+
+.add-file .MuiSvgIcon-root{
+    color: aliceblue;
+}
+
+.add-file p{
+    color:aliceblue;
+}

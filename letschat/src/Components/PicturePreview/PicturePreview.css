@@ -49,10 +49,49 @@
     align-items: center;
 }
 
-.picture-preview img{
+.picture-collection{
+
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 50%;
-    height: 60%;
+ 
+    flex-direction: row;
 }
+
+.image{
+    width: 600px;
+    height: 80%;
+
+}
+
+.slide{
+    opacity: 0;
+    transition-duration: 1s ease;
+
+}
+
+.slide.active{
+    opacity: 1;
+    transition-duration: 1s;
+    transform: scale(1.08);
+}
+ 
+  
+
+  
+
+
+
+
+
+
+
+   
+
+
+
 .picture-preview .preview-caption{
     background-color: #414141;
     width: 80%;
@@ -88,7 +127,7 @@
     flex:1;
     background-color: #313131;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     position: relative;
     
@@ -97,7 +136,7 @@
 .preview-tiny-picture .MuiIconButton-root{
     background-color: #bbe1fa;
     position: absolute;
-    left:90%;
+    left:93%;
     top:-20%;
  
     
@@ -109,25 +148,10 @@
 .preview-tiny-picture img{
     width: 100px;
     height: 100px;
+   
 }
 
-.add-file{
-    width: 100px;
-    height: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color:#414141 ;
-}
 
-.add-file .MuiSvgIcon-root{
-    color: aliceblue;
-}
-
-.add-file p{
-    color:aliceblue;
-}
 
 .preview-emoji-container{
     
