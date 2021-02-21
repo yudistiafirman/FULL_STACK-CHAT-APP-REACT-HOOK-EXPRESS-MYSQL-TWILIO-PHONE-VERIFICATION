@@ -17,8 +17,10 @@ import { uri } from '../../Helpers/constant'
 import PicturePreview from '../../Components/PicturePreview/PicturePreview'
 import{Alert}from '@material-ui/lab'
 import { Snackbar } from '@material-ui/core'
+import { Scrollbars } from 'react-custom-scrollbars';
 
 import Addfile from '../../Components/Addfile/Addfile'
+import CustomScrollDiv from '../../Components/Scrollbar/Scrollbar'
 
 
 
@@ -28,7 +30,7 @@ import Addfile from '../../Components/Addfile/Addfile'
  const Chat =()=>{
 
     const [chatOption,Setchatoption]=useState(false)
-    const{conversation,picture,SetPicture,SetIndex,index}=useChatValue()
+    const{conversation,picture,SetPicture,SetIndex,index,SetConversation}=useChatValue()
     const chat_options=[
         {option:'Delete Chat'},
         {option:'Delete Contact'}
@@ -42,6 +44,7 @@ import Addfile from '../../Components/Addfile/Addfile'
         error_message:''
     })
     const [delIdx,SetDelIdx]=useState(null)
+ 
 
     const file=useRef()
     const {error_picture,error_message}=error
@@ -65,7 +68,7 @@ import Addfile from '../../Components/Addfile/Addfile'
         SetIndex(0)
     }
 
-    console.log(delIdx,index)
+  
   
     SetDelIdx(null)
 
@@ -95,7 +98,27 @@ import Addfile from '../../Components/Addfile/Addfile'
         </div>
         )
     }
-    
+
+
+    const renderPreview=()=>{
+      return  <PicturePreview  onClose={onClosePreview} onSendPicture={onSendPicture} >
+        {
+            picture.length>0?picture.map((v,i)=>{
+                return <div  onClick={()=>SetIndex(i)} className={index===i?"add-picture active":"add-picture"}>
+                    <img key={i}   src={v}/>
+                    <span onClick={()=>SetDelIdx(i)} className={i===index?"close-small-picture":"close-small-picture display-none"}><Close/></span>
+                </div>
+            } ):null
+        }
+      {
+          picture.length>0&&picture.length<5?<Addfile onAddPicture={onAddPicture}/>:null
+      }
+
+
+ </PicturePreview>
+    }
+
+
     const onStartMedia=()=>{
         
        SetMic(prev=>true)
@@ -168,6 +191,7 @@ import Addfile from '../../Components/Addfile/Addfile'
             if(picture.length!==0){
                 SetIndex(prev=>picture.length)
             }
+                SetConversation({...conversation,isAddingPicture:true})
         }
             
 
@@ -175,8 +199,14 @@ import Addfile from '../../Components/Addfile/Addfile'
 
    
  const onClickFile=()=>{
-     file.current.value=null
-     file.current.click()
+     if(picture.length>0){
+        SetConversation({...conversation,isAddingPicture:true})
+     }
+
+        file.current.value=null
+        file.current.click()
+     
+    
  }
 
  const onClosePreview=()=>{
@@ -184,12 +214,21 @@ import Addfile from '../../Components/Addfile/Addfile'
      file.current.value=null
      SetIndex(prev=>prev=0)
  }
+
+
+
 const onAddPicture=()=>{
+
 onClickFile()
 
 
 }
 
+const onSendPicture=()=>{
+    const fd = new FormData()
+
+
+}
 
 
      return conversation===null?<Welcome/>
@@ -213,10 +252,11 @@ onClickFile()
              </div>
  
          <div className="chat__body">
+             <CustomScrollDiv>
              {
-               renderChatBox()
+               !conversation.isAddingPicture?renderChatBox():renderPreview()
              }
-       
+       </CustomScrollDiv>
          </div>
         
          <div className="chat-footer">
@@ -238,21 +278,7 @@ onClickFile()
             
          </div>
  
-     <PicturePreview preview={picture[picture.length-1]} onClose={onClosePreview} >
-            {
-                picture.length>0?picture.map((v,i)=>{
-                    return <div  onClick={()=>SetIndex(i)} className={index===i?"add-picture active":"add-picture"}>
-                        <img key={i}   src={v}/>
-                        <span onClick={()=>SetDelIdx(i)} className={i===index?"close-small-picture":"close-small-picture display-none"}><Close/></span>
-                    </div>
-                } ):null
-            }
-          {
-              picture.length>0&&picture.length<5?<Addfile onAddPicture={onAddPicture}/>:null
-          }
- 
- 
-     </PicturePreview>
+
 
    <Snackbar  open={error_picture} style={{width:'100%',position:'absolute',top:'50%',height:'10%',left:'50%'}} autoHideDuration={2000} onClose={()=>SetError({error_picture:false,error_message:''})}>
    <Alert  severity="error" >{error_message}</Alert>

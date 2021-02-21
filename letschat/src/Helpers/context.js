@@ -154,6 +154,7 @@ export function ChatProvider({children}){
         SetPicture,
         index,
         SetIndex,
+        SetConversation
        
    
      

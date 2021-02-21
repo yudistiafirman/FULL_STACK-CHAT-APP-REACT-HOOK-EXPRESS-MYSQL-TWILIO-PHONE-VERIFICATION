@@ -1,34 +1,21 @@
 import { IconButton } from '@material-ui/core'
 import { Close, InsertEmoticon, Send } from '@material-ui/icons'
-import evra from '../../Support/Images/evra.jpg'
-import React, { useEffect, useState } from 'react'
+
+import React, {useState } from 'react'
 import './PicturePreview.css'
 import Emoji from '../Emoji/Emoji'
 import { useChatValue } from '../../Helpers/context'
-import { useRef } from 'react'
+
 
 
 
 function PicturePreview({children,onClose,onSendPicture,preview}) {
 
 const [emoticon,SetEmoticon]=useState(false)
-const {previewText,SetPreviewText,picture,index,SetPicture}=useChatValue()
-const focusContent=useRef()
-
-useEffect(()=>{
-    if(picture.length>0){
-        focusContent.current.focus()
-    }
-},[picture])
-
-const handleBlurPreview=()=>{
-    if(picture.length>0){
-        SetPicture([])
-    }
-}
+const {previewText,SetPreviewText,picture,index,conversation}=useChatValue()
 
     return (
-        <div contentEditable style={{caretColor:'transparent',outline:'none'}} ref={focusContent}  onBlur={handleBlurPreview} className={picture.length>0?"send-picture-preview show":"send-picture-preview"}>
+        <div   className={conversation.isAddingPicture&&picture.length>0?"send-picture-preview show":"send-picture-preview"}>
             <div className="preview-top">
                 <IconButton onClick={onClose}>
                     <Close/>
